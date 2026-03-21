@@ -29,7 +29,7 @@ sync_replay() {
     -H "X-Role: kitchen_staff" \
     -d '{"message_id":"msg-1","source_device_id":"test-kds","sequence":1,"sent_at":"2026-01-01T00:00:00Z","payload":{"status":"queued"}}' >/dev/null
   REPLAY=$(curl -sS "$BASE_URL/sync/replay" -H "X-Role: kitchen_staff")
-  echo "$REPLAY" | rg '"message_id":"msg-1"' >/dev/null
+  python3 -c 'import json,sys; data=json.loads(sys.stdin.read()); assert any(item.get("MessageID")=="msg-1" or item.get("message_id")=="msg-1" for item in data)' <<< "$REPLAY"
 }
 
 healthcheck
