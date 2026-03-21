@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Restro Medha Edge API
+  version: 0.1.0
+paths:
+  /auth/login:
+    post:
+      summary: Login and receive token
+  /orders:
+    post:
+      summary: Create order
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+  /orders/{order_id}/state:
+    patch:
+      summary: Update order state using monotonic transitions
+  /kds/tickets:
+    get:
+      summary: List kitchen tickets
+  /kds/tickets/{ticket_id}/state:
+    patch:
+      summary: Update KOT state
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema: { type: string }
+  /bills:
+    post:
+      summary: Create draft bill from order
+  /bills/{bill_id}/finalize:
+    post:
+      summary: Finalize immutable bill with GST fields
+  /bills/{bill_id}/void:
+    post:
+      summary: Manager-only bill voiding
+  /inventory/adjustments:
+    post:
+      summary: Append stock adjustment event
+  /reports/revenue:
+    get:
+      summary: Revenue summary
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

@@ -1,0 +1,23 @@
+version: 0.1.0
+entities:
+  ledger_event:
+    required:
+      - event_id
+      - event_type
+      - entity_type
+      - entity_id
+      - actor_id
+      - occurred_at
+      - payload
+      - checksum
+  sync_envelope:
+    required:
+      - message_id
+      - source_device_id
+      - sequence
+      - sent_at
+      - events
+ordering:
+  - All events are append-only
+  - Sequence is monotonic per device
+  - Duplicate message_id must be ignored

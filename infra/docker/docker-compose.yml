@@ -1,0 +1,40 @@
+services:
+  billing:
+    build: ../../services/billing
+    environment:
+      - BILLING_DB_PATH=/data/billing.db
+    volumes:
+      - billing_data:/data
+    ports:
+      - "8001:8001"
+
+  inventory:
+    build: ../../services/inventory
+    environment:
+      - INVENTORY_DB_PATH=/data/inventory.db
+    volumes:
+      - inventory_data:/data
+    ports:
+      - "8002:8002"
+
+  sync:
+    build: ../../services/sync
+    ports:
+      - "8003:8003"
+
+  gateway:
+    build: ../../services/gateway
+    depends_on:
+      - billing
+      - inventory
+      - sync
+    environment:
+      - BILLING_URL=http://billing:8001
+      - INVENTORY_URL=http://inventory:8002
+      - SYNC_URL=http://sync:8003
+    ports:
+      - "8080:8080"
+
+volumes:
+  billing_data:
+  inventory_data:
