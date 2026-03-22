@@ -16,8 +16,24 @@ This repository contains the MVP implementation with local-first billing, kitche
 - `infra/k8s` - k3s deployment starter manifest
 - `docs/contracts` - domain model, state machine, API/event contracts, RBAC
 - `docs/architecture_layers.md` - how Python services map to domain / application / API / infrastructure
+- `libs/observability` - shared **`restro-observability`** package (JSON logging + `request_id` / `tenant_id` correlation)
 - `docs/runbooks` - deployment, incident response, and pilot acceptance checklists
 - `tests/resilience` - dry-run script for end-to-end resilience smoke test
+
+---
+
+## Local unit tests (Python)
+
+From the **repository root**, install the shared observability package first, then run each service’s tests:
+
+```bash
+pip install ./libs/observability
+pip install -r services/billing/requirements.txt
+cd services/billing && python -m pytest tests/ -q && cd ../..
+
+pip install -r services/inventory/requirements.txt
+cd services/inventory && python -m pytest tests/ -q && cd ../..
+```
 
 ---
 

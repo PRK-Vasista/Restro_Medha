@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from restro_billing.config.settings import Settings
-from restro_billing.core.logging.structured_logging import get_logger
+from restro_observability import get_logger
 
 logger = get_logger(__name__)
 

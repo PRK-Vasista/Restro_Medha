@@ -1,6 +1,8 @@
 services:
   billing:
-    build: ../../services/billing
+    build:
+      context: ../..
+      dockerfile: services/billing/Dockerfile
     environment:
       - BILLING_DB_PATH=/data/billing.db
     volumes:
@@ -9,7 +11,9 @@ services:
       - "8001:8001"
 
   inventory:
-    build: ../../services/inventory
+    build:
+      context: ../..
+      dockerfile: services/inventory/Dockerfile
     environment:
       - INVENTORY_DB_PATH=/data/inventory.db
     volumes:

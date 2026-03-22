@@ -7,7 +7,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from restro_inventory.config.settings import get_settings
-from restro_inventory.core.logging_setup import request_id_ctx, tenant_id_ctx
+from restro_observability import request_id_ctx, tenant_id_ctx
 
 
 class RequestContextMiddleware(BaseHTTPMiddleware):

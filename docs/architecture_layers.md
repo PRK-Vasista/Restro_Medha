@@ -35,5 +35,6 @@ This repo follows a **strict 3-layer** style for `services/billing` and `service
 
 ## Observability
 
+- Shared library: `libs/observability` — install with `pip install ./libs/observability` (package name `restro-observability`).
 - Structured **JSON logs** (toggle `LOG_JSON=false` for plain text locally).
 - Logs include **request_id**, **tenant_id**, **service_name**, **method_name**, **status** where applicable.

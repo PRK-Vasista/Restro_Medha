@@ -13,7 +13,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from restro_billing.config.settings import get_settings
-from restro_billing.core.logging.structured_logging import request_id_ctx, tenant_id_ctx
+from restro_observability import request_id_ctx, tenant_id_ctx
 
 
 class RequestContextMiddleware(BaseHTTPMiddleware):

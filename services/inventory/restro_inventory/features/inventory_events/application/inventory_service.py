@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Any
 
-from restro_inventory.core.logging_setup import get_logger
+from restro_observability import get_logger
 from restro_inventory.core.protocols.inventory_storage import InventoryStoragePort
 
 logger = get_logger(__name__)

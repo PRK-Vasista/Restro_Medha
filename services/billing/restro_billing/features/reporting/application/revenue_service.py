@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from restro_billing.core.logging.structured_logging import get_logger
+from restro_observability import get_logger
 from restro_billing.core.protocols.billing_storage import BillingStoragePort
 
 logger = get_logger(__name__)

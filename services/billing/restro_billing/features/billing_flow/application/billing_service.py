@@ -13,7 +13,7 @@ from typing import Any
 from restro_billing.config.settings import Settings
 from restro_billing.core.domain.enums import BillState
 from restro_billing.core.exceptions.order_exceptions import OrderNotFoundException
-from restro_billing.core.logging.structured_logging import get_logger
+from restro_observability import get_logger
 from restro_billing.core.protocols.billing_storage import BillingStoragePort
 
 logger = get_logger(__name__)

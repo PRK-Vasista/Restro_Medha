@@ -10,7 +10,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 
 from restro_billing.core.exceptions.base_exception import DomainException
-from restro_billing.core.logging.structured_logging import get_logger
+from restro_observability import get_logger
 
 logger = get_logger(__name__)
 

@@ -95,14 +95,12 @@ def require_roles(*allowed: str):
 
 def get_effective_tenant_id(
     x_tenant_id: Annotated[str | None, Header(alias="X-Tenant-Id")] = None,
-    settings: Settings | None = None,
 ) -> str:
     """
     Description: Resolve tenant from header with config default (defense in depth at service ingress).
 
     Inputs:
         x_tenant_id: Optional client-provided tenant.
-        settings: Optional settings override for tests.
 
     Outputs:
         str: Non-empty tenant id.
@@ -110,5 +108,6 @@ def get_effective_tenant_id(
     Exceptions raised:
         None
     """
-    s = settings or get_settings()
-    return (x_tenant_id or s.default_tenant_id).strip() or s.default_tenant_id
+    s = get_settings()
+    tid = (x_tenant_id or s.default_tenant_id).strip()
+    return tid or s.default_tenant_id

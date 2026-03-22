@@ -22,7 +22,11 @@ class Settings(BaseSettings):
         get_settings().inventory_db_path
     """
 
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+        populate_by_name=True,
+    )
 
     service_name: str = Field(default="inventory", validation_alias="SERVICE_NAME")
     inventory_db_path: str = Field(default="/data/inventory.db", validation_alias="INVENTORY_DB_PATH")

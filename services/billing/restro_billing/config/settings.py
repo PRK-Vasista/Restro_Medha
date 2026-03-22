@@ -31,6 +31,8 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         extra="ignore",
+        # Allow Settings(billing_db_path="...") in tests; env still uses SERVICE_NAME-style aliases
+        populate_by_name=True,
     )
 
     service_name: str = Field(default="billing", validation_alias="SERVICE_NAME")

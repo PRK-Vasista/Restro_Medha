@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from restro_inventory.api.middleware import RequestContextMiddleware
 from restro_inventory.api.v1.router import router as inv_router
 from restro_inventory.config.settings import get_settings
-from restro_inventory.core.logging_setup import configure_logging, get_logger
+from restro_observability import configure_logging, get_logger
 from restro_inventory.infrastructure.sqlite_inventory_store import SqliteInventoryStore
 
 logger = get_logger(__name__)
@@ -15,8 +15,8 @@ logger = get_logger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    configure_logging()
     settings = get_settings()
+    configure_logging(settings.service_name, log_json=settings.log_json)
     store = SqliteInventoryStore(settings)
     store.migrate()
     app.state.storage = store

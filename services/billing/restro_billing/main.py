@@ -15,7 +15,7 @@ from restro_billing.api.middleware import RequestContextMiddleware
 from restro_billing.api.v1.router import router as v1_router
 from restro_billing.config.settings import get_settings
 from restro_billing.core.exceptions.base_exception import DomainException
-from restro_billing.core.logging.structured_logging import configure_logging, get_logger
+from restro_observability import configure_logging, get_logger
 from restro_billing.infrastructure.persistence.sqlite_billing_store import SqliteBillingStore
 
 logger = get_logger(__name__)
@@ -35,8 +35,8 @@ async def lifespan(app: FastAPI):
     Exceptions raised:
         sqlite3.Error: If migration fails.
     """
-    configure_logging()
     settings = get_settings()
+    configure_logging(settings.service_name, log_json=settings.log_json)
     store = SqliteBillingStore(settings)
     store.migrate()
     app.state.storage = store

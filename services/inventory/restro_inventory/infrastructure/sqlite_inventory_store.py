@@ -8,7 +8,7 @@ import sqlite3
 from typing import Any
 
 from restro_inventory.config.settings import Settings
-from restro_inventory.core.logging_setup import get_logger
+from restro_observability import get_logger
 
 logger = get_logger(__name__)
 

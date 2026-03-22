@@ -27,7 +27,7 @@ from restro_billing.api.v1.schemas import (
     KdsStateBody,
     OrderStatePatchBody,
 )
-from restro_billing.core.logging.structured_logging import get_logger
+from restro_observability import get_logger
 from restro_billing.features.billing_flow.application.billing_service import BillingApplicationService
 from restro_billing.features.kitchen_display.application.kds_service import KdsService
 from restro_billing.features.ledger.application.ledger_service import LedgerQueryService
