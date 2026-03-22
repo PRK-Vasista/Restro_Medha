@@ -35,11 +35,15 @@ pip install -r services/inventory/requirements.txt
 cd services/inventory && python -m pytest tests/ -q && cd ../..
 ```
 
+You need **`pytest`** and **`httpx`** (they are listed in each service’s `requirements.txt`).
+
 ---
 
 ## Quick Start (For Beginners)
 
 If you are new, follow this section exactly.
+
+**Working directory:** run these commands from the **repository root** (the folder that contains `infra/`, `services/`, and `apps/`), unless a step explicitly `cd`s elsewhere.
 
 ### 1) Install Prerequisites
 
@@ -48,7 +52,7 @@ Install these tools first:
 - Git
 - Docker Engine + Docker Compose plugin
 - `curl`
-- Python 3.10+ (used by test scripts)
+- Python 3.10+ (for local **pytest** and the resilience script’s JSON checks)
 
 Check installation:
 
@@ -64,10 +68,12 @@ python3 --version
 
 ```bash
 git clone <YOUR_REPO_URL>
-cd Restro_Medha
+cd <your-clone-folder>   # often Restro_Medha
 ```
 
 ### 3) Start The Full Local Stack
+
+Billing and inventory images expect the **repo root** as Docker build context (they bundle `libs/observability`). From the repository root:
 
 ```bash
 cp infra/docker/.env.example infra/docker/.env
@@ -96,7 +102,7 @@ Expected health response:
 
 ### 5) Run Dry-Run Test (Recommended)
 
-This simulates order -> bill -> sync replay.
+This simulates order -> bill -> sync replay. Run from the **repository root**:
 
 ```bash
 ./tests/resilience/test_resilience.sh
@@ -129,8 +135,6 @@ cd apps/pos
 npm install
 NEXT_PUBLIC_GATEWAY_URL=http://localhost:8080 npm run dev
 ```
-
-Open: [http://localhost:3000](http://localhost:3000)
 
 ### Handheld (React Native / Expo)
 
@@ -173,6 +177,8 @@ docker compose -f infra/docker/docker-compose.yml up --build -d
 ---
 
 ## Backup and Restore (Edge Data)
+
+With **Docker Compose**, SQLite files live inside **named volumes** (`billing_data`, `inventory_data`), not automatically under `./data` on the host. Use `docker cp` from a running container, or mount host paths, if you want `./data` backups. The script below archives **a host directory** you point at.
 
 ### Create encrypted backup
 
