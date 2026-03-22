@@ -16,15 +16,16 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Billing service smoke test
+      - name: Billing — install & compile & test
         run: |
           python -m pip install -r services/billing/requirements.txt
-          python -m py_compile services/billing/main.py
+          python -m compileall -q services/billing/restro_billing
+          cd services/billing && python -m pytest tests/ -q
 
-      - name: Inventory service smoke test
+      - name: Inventory — install & compile
         run: |
           python -m pip install -r services/inventory/requirements.txt
-          python -m py_compile services/inventory/main.py
+          python -m compileall -q services/inventory/restro_inventory
 
       - name: Set up Go
         uses: actions/setup-go@v5

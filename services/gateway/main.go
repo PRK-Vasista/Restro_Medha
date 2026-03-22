@@ -63,6 +63,15 @@ func main() {
 	mux.Handle("/ledger/", requireRole("manager")(billingProxy))
 
 	mux.Handle("/inventory/", requireRole("manager")(inventoryProxy))
+	mux.Handle("/v1/inventory/", requireRole("manager")(inventoryProxy))
+	mux.Handle("/v1/orders", requireRole("manager", "cashier")(billingProxy))
+	mux.Handle("/v1/orders/", requireRole("manager", "cashier")(billingProxy))
+	mux.Handle("/v1/bills", requireRole("manager", "cashier")(billingProxy))
+	mux.Handle("/v1/bills/", requireRole("manager", "cashier")(billingProxy))
+	mux.Handle("/v1/kds/", requireRole("manager", "kitchen_staff", "cashier")(billingProxy))
+	mux.Handle("/v1/menu/", requireRole("manager", "cashier")(billingProxy))
+	mux.Handle("/v1/reports/", requireRole("manager", "cashier")(billingProxy))
+	mux.Handle("/v1/ledger/", requireRole("manager")(billingProxy))
 	mux.Handle("/sync/", requireRole("manager", "cashier", "kitchen_staff")(syncProxy))
 
 	log.Printf("gateway listening on :%s", port)

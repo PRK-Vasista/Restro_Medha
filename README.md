@@ -9,12 +9,13 @@ This repository contains the MVP implementation with local-first billing, kitche
 - `apps/pos` - Next.js POS and manager dashboard UI
 - `apps/handheld` - React Native handheld app (waiter/kitchen flow shell)
 - `services/gateway` - Golang API gateway with RBAC routing
-- `services/billing` - FastAPI billing service (GST-ready fields + append-only ledger)
-- `services/inventory` - FastAPI inventory and variance event logging
+- `services/billing` - FastAPI billing service: **3-layer layout** (`restro_billing/`: domain → application → API), `/v1` + legacy routes, tenant-aware SQLite
+- `services/inventory` - FastAPI inventory: same layering pattern under `restro_inventory/`, `/v1/inventory/...` + legacy paths
 - `services/sync` - Golang sync manager (event ingest + replay + dedupe)
 - `infra/docker` - Docker Compose setup for local edge stack
 - `infra/k8s` - k3s deployment starter manifest
 - `docs/contracts` - domain model, state machine, API/event contracts, RBAC
+- `docs/architecture_layers.md` - how Python services map to domain / application / API / infrastructure
 - `docs/runbooks` - deployment, incident response, and pilot acceptance checklists
 - `tests/resilience` - dry-run script for end-to-end resilience smoke test
 
